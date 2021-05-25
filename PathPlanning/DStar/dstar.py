@@ -196,7 +196,7 @@ class Dstar:
 
 
 def main():
-    show_anmimation = True
+    show_animation = True
     m = Map(100, 100)
     ox, oy = [], []
     for i in range(-10, 60):
