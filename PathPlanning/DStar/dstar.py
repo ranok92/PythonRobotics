@@ -13,7 +13,6 @@ from sys import maxsize
 
 import matplotlib.pyplot as plt
 
-show_animation = True
 
 
 class State:
@@ -155,7 +154,7 @@ class Dstar:
         if x.t == "close":
             self.insert(x, x.parent.h + x.cost(x.parent))
 
-    def run(self, start, end):
+    def run(self, start, end, show_animation=False):
 
         rx = []
         ry = []
@@ -197,6 +196,7 @@ class Dstar:
 
 
 def main():
+    show_anmimation = True
     m = Map(100, 100)
     ox, oy = [], []
     for i in range(-10, 60):
