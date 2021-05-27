@@ -12,7 +12,7 @@ import math
 from sys import maxsize
 
 import matplotlib.pyplot as plt
-
+import time
 
 
 class State:
@@ -84,9 +84,15 @@ class Map:
 
 
 class Dstar:
-    def __init__(self, maps):
+    def __init__(self, maps, time_lim=1):
+        '''
+        :param time_lim: Time limit of the run() function.
+                        in seconds. So, that it does not 
+                        get stuck. 
+        '''
         self.map = maps
         self.open_list = set()
+        self.tl = time_lim
 
     def process_state(self):
         x = self.min_state()
@@ -158,7 +164,8 @@ class Dstar:
 
         rx = []
         ry = []
-
+        success = True
+        start_time = time.process_time()
         self.open_list.add(end)
 
         while True:
@@ -173,6 +180,11 @@ class Dstar:
         tmp = start
 
         while tmp != end:
+            if time.process_time - start_time > self.tl:
+                success = False
+                print("Cant solve within time-limit")
+                break
+
             tmp.set_state("*")
             rx.append(tmp.x)
             ry.append(tmp.y)
@@ -185,7 +197,7 @@ class Dstar:
             tmp = tmp.parent
         tmp.set_state("e")
 
-        return rx, ry
+        return rx, ry, success
 
     def modify(self, state):
         self.modify_cost(state)
