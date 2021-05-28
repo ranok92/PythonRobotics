@@ -180,7 +180,7 @@ class Dstar:
         tmp = start
 
         while tmp != end:
-            if time.process_time - start_time > self.tl:
+            if time.process_time() - start_time > self.tl:
                 success = False
                 print("Cant solve within time-limit")
                 break
